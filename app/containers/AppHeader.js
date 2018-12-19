@@ -8,8 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
-import ArrowLeft from '@material-ui/icons/ArrowBack';
-import ArrowRight from '@material-ui/icons/ArrowForward';
+import MenuIcon from '@material-ui/icons/Menu';
 import Settings from '@material-ui/icons/Settings';
 
 import * as AppActions from '../actions/app';
@@ -31,7 +30,7 @@ type Props = {
   classes: object
 };
 
-class AppHeaderContainer extends Component<Props> {
+class AppHeader extends Component<Props> {
   props: Props;
 
   state = {
@@ -71,7 +70,7 @@ class AppHeaderContainer extends Component<Props> {
         <AppBar position="sticky" color="default">
           <Toolbar>
             <IconButton onClick={toggleMenuCollapse} color="inherit" aria-label="Menu">
-              {(menuCollapsed) ? ( <ArrowRight />) : ( <ArrowLeft />)}
+              <MenuIcon />
             </IconButton>
             <Typography variant="title" className={classes.grow}>App Thingerer!</Typography>
             <IconButton color="default" onClick={this.openOptionsDialog}>
@@ -102,4 +101,4 @@ const mapDispatchToProps = (dispatch) => (bindActionCreators(_.assign({}, AppAct
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withStyles(styles)(AppHeaderContainer));
+)(withStyles(styles)(AppHeader));

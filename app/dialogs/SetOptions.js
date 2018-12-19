@@ -37,13 +37,13 @@ class SetOptions extends Component<Props> {
   props: Props;
 
   state = {
-    localLightTheme: false
+    lightTheme: false
   };
 
   componentWillMount() {
     const { lightTheme } = this.props;
     this.setState({
-      localLightTheme: lightTheme
+      lightTheme: lightTheme
     });
   }
 
@@ -58,9 +58,15 @@ class SetOptions extends Component<Props> {
     });
   };
 
+  handleOk = () => {
+    const { handleOk } = this.props;
+    const updatedOptions = _.assign({}, this.state);
+    handleOk(updatedOptions);
+  }
+
   render() {
     const { classes, open, handleClose, handleOk } = this.props;
-    const { localLightTheme } = this.state;
+    const { lightTheme } = this.state;
     return (
       <Dialog
         open={open}
@@ -73,8 +79,8 @@ class SetOptions extends Component<Props> {
             <FormControlLabel
               control={
                 <Switch
-                  checked={localLightTheme}
-                  onChange={this.handleChange('localLightTheme')}
+                  checked={lightTheme}
+                  onChange={this.handleChange('lightTheme')}
                   value="light"
                 />
               }
@@ -86,7 +92,7 @@ class SetOptions extends Component<Props> {
           <Button onClick={handleClose} color="secondary">
             Cancel
           </Button>
-          <Button onClick={() => handleOk(localLightTheme)} color="secondary">
+          <Button onClick={this.handleOk} color="secondary">
             Ok
           </Button>
         </DialogActions>

@@ -1,13 +1,33 @@
 // @flow
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import {createMuiTheme, MuiThemeProvider} from '@material-ui/core/styles';
-import {bindActionCreators} from "redux";
-import _ from "lodash";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import {
+  createMuiTheme,
+  MuiThemeProvider,
+  withStyles
+} from '@material-ui/core/styles';
+import { bindActionCreators } from 'redux';
+import _ from 'lodash';
 
-import * as OptionsActions from "../actions/options";
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
 
-import AppHeaderContainer from './AppHeaderContainer';
+import * as OptionsActions from '../actions/options';
+import AppHeader from './AppHeader';
+import Menu from './Menu';
+
+const styles = theme => ({
+  mainContainer: {
+    width: '100%',
+    height: '100%',
+    paddingTop: theme.spacing.unit * 2,
+    overflow: 'hidden',
+    borderRadius: 0
+  },
+  fullHeight: {
+    height: '100%'
+  }
+});
 
 type Props = {
   options: object,
@@ -30,7 +50,7 @@ const secondary = {
   contrastText: '#fff'
 };
 
-class AppContainer extends Component<Props> {
+class App extends Component<Props> {
   props: Props;
 
   state = {
@@ -44,7 +64,7 @@ class AppContainer extends Component<Props> {
   };
 
   componentWillMount() {
-    const {getOptionsFromStore, options} = this.props;
+    const { getOptionsFromStore, options } = this.props;
     getOptionsFromStore();
     const updatedTheme = {
       palette: {
@@ -55,12 +75,12 @@ class AppContainer extends Component<Props> {
     };
     this.setState({
       theme: createMuiTheme(updatedTheme)
-    })
+    });
   }
 
   componentDidUpdate() {
-    const {options} = this.props;
-    const {theme} = this.state;
+    const { options } = this.props;
+    const { theme } = this.state;
 
     const updatedType = options.lightTheme ? 'light' : 'dark';
 
@@ -74,17 +94,45 @@ class AppContainer extends Component<Props> {
     if (theme.palette.type !== updatedType) {
       this.setState({
         theme: createMuiTheme(updatedTheme)
-      })
+      });
     }
   }
 
   render() {
-    const {children, options, menuCollapsed} = this.props;
-    const {theme} = this.state;
+    const { classes, children, options, menuCollapsed } = this.props;
+    const { theme } = this.state;
     return (
       <MuiThemeProvider theme={theme}>
-        <AppHeaderContainer options={options} menuCollapsed={menuCollapsed} />
-        <React.Fragment>{children}</React.Fragment>
+        <AppHeader options={options} menuCollapsed={menuCollapsed} />
+        <Paper className={classes.mainContainer}>
+          {menuCollapsed ? (
+            <Grid
+              container
+              spacing={24}
+              alignItems="stretch"
+              className={classes.fullHeight}
+            >
+              <Grid item xs={12} className={classes.fullHeight}>
+                <React.Fragment>{children}</React.Fragment>
+              </Grid>
+            </Grid>
+          ) : (
+            <Grid
+              container
+              spacing={24}
+              alignItems="stretch"
+              className={classes.fullHeight}
+            >
+              <Grid item xs={4} className={classes.fullHeight}>
+                <Menu />
+              </Grid>
+
+              <Grid item xs={8} className={classes.fullHeight}>
+                <React.Fragment>{children}</React.Fragment>
+              </Grid>
+            </Grid>
+          )}
+        </Paper>
       </MuiThemeProvider>
     );
   }
@@ -95,9 +143,10 @@ const mapStateToProps = state => ({
   menuCollapsed: state.options.menuCollapsed
 });
 
-const mapDispatchToProps = (dispatch) => (bindActionCreators(_.assign({}, OptionsActions), dispatch));
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(_.assign({}, OptionsActions), dispatch);
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(AppContainer);
+)(withStyles(styles)(App));

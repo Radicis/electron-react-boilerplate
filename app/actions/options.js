@@ -15,7 +15,7 @@ const JSONStore = new Store();
  */
 export function getOptionsFromStore() {
   return (dispatch: Dispatch) => {
-    const storeOptions = JSONStore.get('optins') || {};
+    const storeOptions = JSONStore.get('options') || {};
     dispatch(setOptions(storeOptions));
   };
 }
@@ -41,9 +41,6 @@ export function updateOptions(updatedOptions) {
   return (dispatch: Dispatch, getState: GetState) => {
     // Get the current options from the state
     const options = getState().options.options;
-
-    console.log(options);
-    console.log(updatedOptions);
 
     // Assign new values
     let newOptions = _.assign({}, options, updatedOptions);

@@ -33,7 +33,8 @@ type Props = {
   options: object,
   menuCollapsed: boolean,
   getOptionsFromStore: () => void,
-  children: React.Node
+  children: React.Node,
+  classes: object
 };
 
 const primary = {

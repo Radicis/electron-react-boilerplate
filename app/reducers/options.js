@@ -4,21 +4,7 @@ import { SET_OPTIONS, TOGGLE_MENU } from '../actions/options';
 import type { Action } from './types';
 
 const initialState = {
-  options: {
-    amqp: {
-      host: 'localhost',
-      port: '5672',
-      user: 'user',
-      password: 'bitnami'
-    },
-    http: {
-      host: 'localhost',
-      port: '15672',
-      user: 'user',
-      password: 'bitnami'
-    },
-    queue: 'bunny'
-  },
+  options: {},
   menuCollapsed: false
 };
 

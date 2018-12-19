@@ -5,10 +5,7 @@ import { routerMiddleware, routerActions } from 'connected-react-router';
 import { createLogger } from 'redux-logger';
 import createRootReducer from '../reducers';
 import * as optionsActions from '../actions/options';
-import * as amqpActions from '../actions/amqp';
-import * as eventActions from '../actions/events';
-import * as messageActions from '../actions/messages';
-import amqp from '../reducers/amqp';
+import * as appActinos from '../actions/app';
 
 const history = createHashHistory();
 
@@ -40,9 +37,7 @@ const configureStore = () => {
   // Redux DevTools Configuration
   const actionCreators = {
     ...optionsActions,
-    ...amqpActions,
-    ...messageActions,
-    ...eventActions,
+    ...appActions,
     ...routerActions
   };
   // If Redux DevTools Extension is installed use it, otherwise use Redux compose

@@ -15,12 +15,11 @@ export default function(state = initialState, action: Action) {
         ...state,
         selectedEvent: _.find(state.events, e => e.id === action.eventId)
       };
-    }
-    case SET_EVENTS: 
+    case SET_EVENTS:
       return {
         ...state,
         eventS: action.events
-      }
+      };
     default:
       return state;
   }

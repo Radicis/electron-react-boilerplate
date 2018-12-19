@@ -8,23 +8,25 @@ import Typography from '@material-ui/core/Typography';
 const styles = () => ({});
 
 type Props = {
-  classes: object
+  classes: object,
+  exchanges: Array,
+  setExchanges: () => void
 };
 
-class Stuff extends Component<Props> {
+class QueueOptions extends Component<Props> {
   props: Props;
 
   state = {};
 
   render() {
-    const { classes } = this.props;
+    const { classes, exchanges, setExchanges } = this.props;
     const {} = this.state;
     return (
       <Typography variant="h6" color="inherit">
-        Main
+        Queue Options
       </Typography>
     );
   }
 }
 
-export default withStyles(styles)(Stuff);
+export default withStyles(styles)(QueueOptions);

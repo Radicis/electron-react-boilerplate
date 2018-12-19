@@ -15,7 +15,7 @@ export function createConnection() {
     const { host, port, user, password } = getState().options.amqp;
     const connectionString = `${user}:${password}@${host}:${port}`;
     return amqp
-      .connect(connectionString);
+      .connect(connectionString)
       .then(conn => {
         dispatch(setConnection(conn));
         return getState().amqp.connection.createChannel();
@@ -35,7 +35,7 @@ export function createConnection() {
   };
 }
 
-async getExchanges () {
+async function getExchanges () {
   const { host, port, user, password } = getState().options.http;
   const exchangeUrl = `${host}:${port}/api/exchanges`;
   console.log(`Getting exchanges: ${exchangeUrl}`);
@@ -47,8 +47,8 @@ async getExchanges () {
   });
 }
 
-initBindings (exchanges) {
-  return (getState: GetState) {
+function bindExchanges (exchanges) {
+  return (getState: GetState) => {
     const { channel, exchanges } = getState().amqp;
     const { queue } = getState().options;
     channel.deleteQueue(queue).then(() => {
@@ -78,14 +78,14 @@ initBindings (exchanges) {
   }
 }
 
-publish (msg) {
+function publish (msg) {
   const { channel } = getState().amqp;
   const { exchangeName, routingKey, content } = msg;
   content.messageId = UUID();
   channel.publish(exchangeName, routingKey, Buffer.from(content));
 }
 
-on (event, cb) {
+function on (event, cb) {
   emitter.on(event, cb);
 }
 

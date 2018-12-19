@@ -11,7 +11,6 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import Settings from '@material-ui/icons/Settings';
 
-import * as AppActions from '../actions/app';
 import * as OptionsActions from '../actions/options';
 
 import SetOptions from "../dialogs/SetOptions";
@@ -96,7 +95,7 @@ const mapStateToProps = state => ({
   menuCollapsed: state.options.menuCollapsed
 });
 
-const mapDispatchToProps = (dispatch) => (bindActionCreators(_.assign({}, AppActions, OptionsActions), dispatch));
+const mapDispatchToProps = (dispatch) => (bindActionCreators(_.assign({}, OptionsActions), dispatch));
 
 export default connect(
   mapStateToProps,

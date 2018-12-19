@@ -46,7 +46,7 @@ export function updateEvent(updatedEvent) {
 
     const index = _.findIndex(storeEvents, {id: updateEvent.id});
 
-    const updatedStoreEvents = storeEvents.splice(index, 1, updatedEvent})
+    const updatedStoreEvents = storeEvents.splice(index, 1, updatedEvent)
 
     // Update the store with the new values
     JSONStore.set('events', updatedStoreEvents);

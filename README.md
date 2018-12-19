@@ -3,7 +3,7 @@
 First, clone the repo via git:
 
 ```bash
-git clone --depth 1 --single-branch --branch master https://github.com/radicis/electron-react-material-boilerplate.git your-project-name
+git clone --depth 1 --single-branch --branch next https://github.com/radicis/electron-react-material-boilerplate.git your-project-name
 ```
 
 And then install the dependencies with yarn.
@@ -12,6 +12,8 @@ And then install the dependencies with yarn.
 $ cd your-project-name
 $ yarn
 ```
+
+If it gives you any troule about chalk just do npm i chalk and try again
 
 ## Starting Development
 
